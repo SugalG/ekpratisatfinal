@@ -132,7 +132,7 @@ const Header = ({ className }: any) => {
 
             {/* Authentication */}
             {status === "loading" ? (
-              <div>Loading...</div>
+              <div></div>
             ) : !session ? (
               <LoginButton />
             ) : (

@@ -63,7 +63,7 @@ export default function RootLayout({
             })}
           </Script>
           <div className="flex-grow">{children}</div>
-          {/* <Footer /> */}
+          <Footer />
         </Providers>
       </body>
     </html>
