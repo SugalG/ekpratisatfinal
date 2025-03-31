@@ -6,8 +6,9 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: transparent; /* Ensures no background */
 }
 
-/* body {
-  background-color: #f6f1ed;
-} */
+body {
+  background-color: transparent; /* Ensures body has no background */
+}

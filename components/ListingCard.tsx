@@ -73,10 +73,10 @@ export default function ListingCard({
       </div>
 
       {/* Foreground Card (Info) */}
-      <div className="absolute top-[75%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
+      <div className="absolute top-[90%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
         {/* Price Info */}
         <div className="mb-2">
-          {type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/mo</span>}
+          {type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/month</span>}
           {type === "sell" && <span className="text-black font-bold text-lg"> Rs. {price}</span>}
         </div>
 

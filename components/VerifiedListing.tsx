@@ -1,6 +1,6 @@
 import ListingCard from "@/components/ListingCard";
 import { getVerifiedListingAction } from "@/action/getVerifiedListingAction";  // Importing the verified listing action
-import VerifiedAll from "./ViewAllVerified";  // Importing the ViewAllVerified component
+
 import ViewAllVerified from "./ViewAllVerified";
 
 export default async function VerifiedListings() {
@@ -22,7 +22,7 @@ export default async function VerifiedListings() {
           <ViewAllVerified/>  {/* Render the 'View All Verified Listings' button */}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-14">
           {data.map((item: any, index: any) => (
             <div key={index} className="flex justify-center">
               <a href={`/listing/${item.id}`} className="w-full max-w-[400px]">

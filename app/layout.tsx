@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { Providers } from "./provider";
 import Analytics from "@/components/Analytics"; // Import the client-side component
 import Script from "next/script";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "EkPratisat - Buy, Sell & Rent Properties in Nepal",
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col h-screen">
         <Providers>
+          {/* <Header/> */}
           <Analytics /> {/* Client component for Google Analytics */}
           <Script id="structured-data" type="application/ld+json">
             {JSON.stringify({
@@ -63,7 +65,7 @@ export default function RootLayout({
             })}
           </Script>
           <div className="flex-grow">{children}</div>
-          {/* <Footer /> */}
+          <Footer />
         </Providers>
       </body>
     </html>

@@ -1,11 +1,11 @@
 import Header from "./Header";
 
-export default function () {
+export default function HeroSection() {
   return (
-    <div className="relative min-h-[80vh] xl:min-h-[85vh] lg:min-h-[90vh] md:min-h-screen">
+    <div className="relative min-h-screen">
       {/* Background Image with Parallax Effect */}
       <div
-        className="absolute top-0 left-0 w-full h-full md:bg-fixed sm:bg-scroll bg-center bg-cover"
+        className="absolute top-0 left-0 w-full h-full bg-fixed bg-center bg-cover"
         style={{
           backgroundImage:
             "url('https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg')",
@@ -17,7 +17,7 @@ export default function () {
 
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col">
-        <Header />
+        {/* <Header /> */}
         <div className="flex flex-col gap-6 px-4 sm:px-8 lg:px-28 max-w-7xl mx-auto font-custom min-h-[800px] justify-center">
           <h1 className="text-white font-bold text-3xl sm:text-4xl lg:text-6xl">
             Find your next <span className="text-slate-400">perfect</span>
@@ -36,7 +36,7 @@ export default function () {
         </div>
       </div>
 
-     {/* scroll indicatior */}
+      {/* Scroll Indicator */}
       <div className="absolute bottom-6 w-full flex justify-center">
         <a
           href="#listing-section"
@@ -48,12 +48,6 @@ export default function () {
           </svg>
         </a>
       </div>
-
-
-
-
-
-
     </div>
   );
 }

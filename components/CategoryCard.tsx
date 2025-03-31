@@ -18,7 +18,7 @@
 export default function CategoryCard({ img, type }: { img: string; type: string }) {
   return (
     <div className="w-full border-2 border-black rounded-lg overflow-hidden shadow-lg">
-      <div className="relative aspect-[7/5]">
+      <div className="relative aspect-[7/3]">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center"

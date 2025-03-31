@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import { SearchComponent } from "./SearchComponent";
 import AvatarDropdown from "./AvatarDropDown";
 import { LoginButton } from "./LoginButton";
@@ -14,7 +14,6 @@ const Header = ({ className }: any) => {
   const [isClient, setClient] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile menu toggle
   const toolsRef = useRef(null);
   const servicesRef = useRef(null);
   const pathname = usePathname(); // Get the current pathname
@@ -61,9 +60,10 @@ const Header = ({ className }: any) => {
   }
 
   return (
-    <div className={`w-full ${className} ${isHomePage ? 'bg-transparent' : 'bg-black'} py-6`}>
-      <div className="flex flex-wrap items-center justify-between px-4 sm:px-6 md:px-12 py-3">
-        {/* Logo Section */}
+    <div className={`w-full ${className} ${isHomePage ? 'bg-transparent' : 'bg-black'}`}>
+      {/* Top section with logo and avatar */}
+      <div className="flex items-center justify-between px-4 sm:px-6 md:px-12 py-3">
+        {/* Logo */}
         <div className="flex-shrink-0">
           <a href="/">
             <img
@@ -74,63 +74,70 @@ const Header = ({ className }: any) => {
           </a>
         </div>
 
-        {/* Navigation + Authentication */}
-        <div className="flex flex-wrap items-center space-x-4 sm:space-x-6 md:space-x-10">
-          {/* Mobile Hamburger Menu */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-white text-2xl"
+        {/* Avatar/Login - shown on all screen sizes */}
+        <div className="lg:hidden">
+          {status === "loading" ? (
+            <div>Loading...</div>
+          ) : !session ? (
+            <LoginButton />
+          ) : (
+            <div className="flex items-center">
+              <AvatarDropdown
+                avatarUrl={session.user.image || undefined}
+                userName={session.user.name || undefined}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Navigation - hidden on small/medium screens, shown on large screens */}
+        <div className="hidden lg:flex items-center space-x-4 sm:space-x-6 md:space-x-10">
+          {/* About Us */}
+          <Link
+            href="/about"
+            className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu"
           >
-            &#9776; {/* Hamburger icon */}
-          </button>
+            About Us
+          </Link>
 
-          {/* Menu Items */}
-          <div className={`lg:flex items-center space-x-4 sm:space-x-6 md:space-x-10 ${isMenuOpen ? 'flex' : 'hidden'} lg:block`}>
-            {/* About Us */}
-            <Link
-              href="/about"
-              className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-semibold text-lg tracking-wide hover:scale-105 transform-gpu"
+          {/* Services Dropdown */}
+          <div className="relative" ref={servicesRef}>
+            <button
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
+              onClick={handleServicesClick}
             >
-              About Us
-            </Link>
+              Services
+            </button>
+            {isServicesOpen && (
+              <ServiceComponent className={`${isHomePage ? 'bg-transparent border-transparent' : 'bg-black border border-gray-800'}`} />
+            )}
+          </div>
 
-            {/* Services Dropdown */}
-            <div className="relative" ref={servicesRef}>
-              <button
-                className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-semibold text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
-                onClick={handleServicesClick}
-              >
-                Services
-              </button>
-              {isServicesOpen && (
-                <ServiceComponent className={isHomePage ? 'bg-transparent' : 'bg-black'} />
-              )}
-            </div>
+          {/* Tools Dropdown */}
+          <div className="relative" ref={toolsRef}>
+            <button
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
+              onClick={handleToolsClick}
+            >
+              Tools
+            </button>
+            {isToolsOpen && (
+              <div className={`absolute top-full left-0 mt-2 rounded-md w-40 z-10 border border-gray-800 ${isHomePage ? 'bg-transparent' : 'bg-black'} ${isHomePage ? 'border-transparent' : 'border border-gray-800'}`}>
+                {["Unit Converter", "Calendar", "EMI"].map((tool) => (
+                  <Link
+                    key={tool}
+                    href={`/${tool.toLowerCase().replace(" ", "-")}`}
+                    className="block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] font-medium text-sm tracking-normal hover:scale-105 transform-gpu"
+                  >
+                    {tool}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
-            {/* Tools Dropdown */}
-            <div className="relative" ref={toolsRef}>
-              <button
-                className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-semibold text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
-                onClick={handleToolsClick}
-              >
-                Tools
-              </button>
-              {isToolsOpen && (
-                <div className={`absolute top-full left-0 mt-2 rounded-md w-40 z-10 border border-gray-800 ${isHomePage ? 'bg-transparent' : 'bg-black'}`}>
-                  {["Unit Converter", "Calendar", "EMI"].map((tool) => (
-                    <Link
-                      key={tool}
-                      href={`/${tool.toLowerCase().replace(" ", "-")}`}
-                      className="block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] font-medium text-sm tracking-normal hover:scale-105 transform-gpu"
-                    >
-                      {tool}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Authentication */}
+          {/* Authentication - shown only on large screens (hidden on mobile since we show it above) */}
+          <div className="hidden lg:block">
             {status === "loading" ? (
               <div>Loading...</div>
             ) : !session ? (
@@ -147,10 +154,12 @@ const Header = ({ className }: any) => {
         </div>
       </div>
 
-      {/* Centered Search Component */}
-      {/* <div className="flex justify-center w-full px-4 sm:px-6 md:px-12">
-        <SearchComponent />
-      </div> */}
+      {/* Search bar - conditionally rendered and responsive */}
+      {!isHomePage && (
+        <div className="w-full px-4 sm:px-6 md:px-12 pb-4">
+          <SearchComponent />
+        </div>
+      )}
     </div>
   );
 };

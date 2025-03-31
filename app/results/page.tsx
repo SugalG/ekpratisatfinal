@@ -35,6 +35,7 @@ export default function () {
     return (
         <div>
             <Header />
+            <h5 className="flex justify-center text-2xl font-bold mt-5 underline"> Showing search results</h5 >
             <ListingListComponent listing={paginatedData} />
 
             {/* Pagination Controls */}

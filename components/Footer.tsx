@@ -10,7 +10,7 @@ const Footer = () => {
           <img
             src="/FinalLogoGrayScale.png"
             alt="Ekpratisat Logo"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 opacity-20 pointer-events-none"
+            className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-100 opacity-20 pointer-events-none"
           />
         </div>
       </div>
@@ -27,7 +27,7 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">
               Welcome to Ekpratisat Real Estate – Smart Choices, Secure Investments!
             </h3>
-            <p className="text-sm mb-4">2
+            <p className="text-sm mb-4">
               At Ekpratisat Real Estate, we make property transactions simple, transparent, and hassle-free.
               As a trusted brokerage firm in Nepal, we act as the reliable bridge between buyers and sellers.
             </p>

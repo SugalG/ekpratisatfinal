@@ -10,7 +10,7 @@ type User = {
   email: string;
   mobile: string;
   role: string;
-  created: string; // Added created date
+  created: string;
 };
 
 const UsersPage = () => {
@@ -75,42 +75,70 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
-      <AdminUserSearchBar value={pendingSearchQuery} onChange={handleSearchChange} onSearch={handleSearch} />
+    <div className="container mx-auto px-4 min-h-screen">
+      <h1 className="text-2xl font-bold mb-4 text-center sm:text-left">Users</h1>
 
-      <table className="w-full bg-white border border-gray-200">
-        <thead><tr className="bg-gray-100 border-b"><th>ID</th><th>Full Name</th><th>Email</th><th>Mobile</th><th>Role</th><th>Created At</th><th>Actions</th></tr></thead>
-        <tbody>
-          {users.length ? (
-            users.map((user) => (
-              <tr key={user.id} className="border-b">
-                <td>{user.id}</td>
-                <td>{user.fullname}</td>
-                <td>{user.email}</td>
-                <td>{user.mobile}</td>
-                <td>{user.role}</td>
-                <td>{user.created ? new Date(user.created).toLocaleDateString() : "N/A"} {/* Fallback if no date */}</td>
-                <td><button onClick={() => openEditModal(user)} className="bg-blue-500 text-white px-3 py-1 rounded">Edit</button></td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={7} className="text-center py-4">
-                No users found.
-              </td>
+      {/* Search Bar */}
+      <div className="mb-4">
+        <AdminUserSearchBar value={pendingSearchQuery} onChange={handleSearchChange} onSearch={handleSearch} />
+      </div>
+
+      {/* Responsive Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full bg-white border border-gray-200 text-sm sm:text-base">
+          <thead>
+            <tr className="bg-gray-100 border-b">
+              <th className="p-2 whitespace-nowrap">ID</th>
+              <th className="p-2 whitespace-nowrap">Full Name</th>
+              <th className="p-2 whitespace-nowrap">Email</th>
+              <th className="p-2 whitespace-nowrap">Mobile</th>
+              <th className="p-2 whitespace-nowrap">Role</th>
+              <th className="p-2 whitespace-nowrap">Created At</th>
+              <th className="p-2 whitespace-nowrap">Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.length ? (
+              users.map((user) => (
+                <tr key={user.id} className="border-b text-center">
+                  <td className="p-2">{user.id}</td>
+                  <td className="p-2">{user.fullname}</td>
+                  <td className="p-2">{user.email}</td>
+                  <td className="p-2">{user.mobile}</td>
+                  <td className="p-2">{user.role}</td>
+                  <td className="p-2">{user.created ? new Date(user.created).toLocaleDateString() : "N/A"}</td>
+                  <td className="p-2">
+                    <button onClick={() => openEditModal(user)} className="bg-blue-500 text-white px-3 py-1 rounded">
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="text-center py-4">
+                  No users found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
-
+      {/* Pagination */}
       <Pagination currentPage={currentPage} totalItems={totalUsers} itemsPerPage={itemsPerPage} onPageChange={setCurrentPage} />
 
+      {/* Edit Modal */}
       {editingUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">Edit User</h2>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeEditModal} // Close modal when clicking outside
+        >
+          <div
+            className="bg-white p-6 rounded shadow-lg w-full max-w-md sm:max-w-lg max-h-[90vh] overflow-y-auto relative"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            <h2 className="text-lg font-bold mb-4 text-center">Edit User</h2>
 
             <label className="block font-semibold">Full Name</label>
             <input name="fullname" value={editForm.fullname || ""} onChange={handleEditChange} className="border p-2 w-full mb-2" />
@@ -127,15 +155,7 @@ const UsersPage = () => {
               <option value="ADMIN">Admin</option>
             </select>
 
-            <label className="block font-semibold">Created At</label>
-            <input
-              type="text"
-              value={new Date(editingUser.created).toLocaleString()} // Show formatted date
-              disabled
-              className="border p-2 w-full bg-gray-100 cursor-not-allowed mb-2"
-            />
-
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-4">
               <button onClick={saveEditedUser} className="bg-green-500 text-white px-4 py-2 rounded">
                 Save
               </button>

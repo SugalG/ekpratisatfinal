@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Loading from "@/components/Loading"; // Your loading spinner component
-import Header from "@/components/Header"; // Updated Header with avatar dropdown for admin
+import Loading from "@/components/Loading";
+import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import AdminSidebar from "@/components/AdminSidebar";
 
@@ -14,15 +14,14 @@ const AdminDashboard = () => {
   const [totalListings, setTotalListings] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
 
-  // If the session is unauthenticated or the user is not an admin, redirect to sign-in
   useEffect(() => {
     if (status === "unauthenticated" || (session && session.user.role !== "ADMIN")) {
       router.push("/auth/signin");
     }
   }, [status, session, router]);
 
-  // Fetch total users and listings data if authenticated
   useEffect(() => {
     if (status === "authenticated") {
       const fetchData = async () => {
@@ -55,46 +54,59 @@ const AdminDashboard = () => {
   if (error) return <div className="p-6 text-red-600">Error: {error}</div>;
 
   return (
-    <div className="flex min-h-screen flex-col mt-8">
-      {/* Header with logo, search, and admin avatar dropdown */}
-      <Header className="sticky top-0 z-10 bg-white" />
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      {/* <Header /> */}
+
+      {/* Mobile Sidebar Toggle Button */}
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="lg:hidden p-2 m-4 bg-gray-200 rounded-md text-gray-700"
+      >
+        {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+      </button>
 
       <div className="flex flex-1">
-        {/* Sidebar */}
-        <AdminSidebar />
+        {/* Sidebar (Hidden on small screens) */}
+        <div
+          className={`absolute inset-y-0 left-0 w-64 bg-white shadow-lg transition-transform transform ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:relative lg:translate-x-0`}
+        >
+          <AdminSidebar />
+        </div>
 
-        <div className="flex-1 p-6">
+        {/* Main Content */}
+        <div className="flex-1 p-4 lg:p-6">
           <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
 
-          <div className="grid grid-cols-1 gap-8">
-            {/* Stats Section */}
-            <section className="bg-white shadow-md rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-4">Overview</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {/* Total Users */}
-                <div className="flex justify-between items-center bg-blue-100 p-4 rounded-lg">
-                  <div>
-                    <h3 className="text-lg font-medium">Total Users</h3>
-                    <p className="text-2xl font-bold">{totalUsers}</p>
-                  </div>
-                  <div className="bg-blue-500 text-white p-4 rounded-full">
-                    <span className="text-3xl">👥</span>
-                  </div>
+          {/* Stats Section */}
+          <section className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-xl font-semibold mb-4">Overview</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Total Users */}
+              <div className="flex justify-between items-center bg-blue-100 p-4 rounded-lg">
+                <div>
+                  <h3 className="text-lg font-medium">Total Users</h3>
+                  <p className="text-2xl font-bold">{totalUsers}</p>
                 </div>
-
-                {/* Total Listings */}
-                <div className="flex justify-between items-center bg-green-100 p-4 rounded-lg">
-                  <div>
-                    <h3 className="text-lg font-medium">Total Listings</h3>
-                    <p className="text-2xl font-bold">{totalListings}</p>
-                  </div>
-                  <div className="bg-green-500 text-white p-4 rounded-full">
-                    <span className="text-3xl">🏠</span>
-                  </div>
+                <div className="bg-blue-500 text-white p-4 rounded-full">
+                  <span className="text-3xl">👥</span>
                 </div>
               </div>
-            </section>
-          </div>
+
+              {/* Total Listings */}
+              <div className="flex justify-between items-center bg-green-100 p-4 rounded-lg">
+                <div>
+                  <h3 className="text-lg font-medium">Total Listings</h3>
+                  <p className="text-2xl font-bold">{totalListings}</p>
+                </div>
+                <div className="bg-green-500 text-white p-4 rounded-full">
+                  <span className="text-3xl">🏠</span>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

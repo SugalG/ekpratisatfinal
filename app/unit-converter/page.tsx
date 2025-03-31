@@ -100,7 +100,7 @@ export default function LandConverter() {
 
   return (
     <div className="h-full">
-      <Header />
+      <Header/>
       <div className="bg-[#ffdc14] py-6 mt-4">
         <h1 className="text-4xl font-bold text-center text-[#a39f9f]">Land Area Unit Converter</h1>
       </div>

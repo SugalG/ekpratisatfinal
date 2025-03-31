@@ -4,9 +4,9 @@ import Header from "@/components/Header";
 const About = () => {
   return (
     <div className=" h-full">
-      <Header/>
+        <Header/>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Header Section */}
+        
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">About Us</h1>
           <p className="text-lg text-gray-600">
@@ -36,14 +36,14 @@ const About = () => {
             </p>
           </div>
 
-          <div className="">
+          {/* <div className="">
             <a href="/">
               <video autoPlay muted loop playsInline>
                 <source src="/video/finalvideo.mp4" type="video/mp4" />
               </video>
 
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Values Section */}
@@ -78,7 +78,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Footer Section */}
+        
         <div className="mt-16 text-center">
           <h2 className="text-xl font-semibold text-gray-800">
             Ready to find your dream property?

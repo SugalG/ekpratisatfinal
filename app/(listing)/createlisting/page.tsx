@@ -8,13 +8,13 @@ import HouseInfo from '@/components/createListingComponent/HouseInfo';
 import ImageUpload from '@/components/createListingComponent/ImageUpload';
 import LandInfo from '@/components/createListingComponent/LandInfo';
 import RoomInfo from '@/components/createListingComponent/RoomInfo';
-import Header from '@/components/Header';
 import Loading from '@/components/Loading';
 import { CreateListingSchema } from '@/zod/schema';
 import { useRouter } from 'next/navigation';
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import amenityIcons from '@/components/amenityIcons'; // Import the amenityIcons mapping
+
 
 type Amenity = "Lawn" | "Drainage" | "Jacuzzi" | "Garage" | "Parking" | "Air Condition" | "Balcony" | "Deck" | "Fencing" | "Water Supply" | "Garden" | "CCTV" | "Gym" | "Microwave" | "Modular Kitchen" | "Security Staff";
 
@@ -43,6 +43,9 @@ const CreateListingForm = () => {
     const [formStatus, setFormStatus] = useState<'idle' | 'message' | 'error'>('idle');
     const { data: session } = useSession();
     const router = useRouter();
+   
+
+    
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;

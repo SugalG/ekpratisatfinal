@@ -25,7 +25,7 @@ export default async function () {
         <RecentAll/>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-14">
           {data.map((item :any, index: any) => (
             <div key={index} className="flex justify-center">
               <a href={`/listing/${item.id}`} className="w-full max-w-[400px]">

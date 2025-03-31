@@ -1,4 +1,4 @@
-
+"use server";
 
 import {getUserFavouritesService} from "@/services/favouritesService"
 

@@ -57,7 +57,7 @@ export default function SignIn() {
   return (
     <div className="h-full flex flex-col">
       <Header />
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-center justify-center mt-5">
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Sign In
