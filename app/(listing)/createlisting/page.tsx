@@ -36,6 +36,8 @@ const CreateListingForm = () => {
         area: null,
         amenities: [], // Initialize as an empty array
         verified: false,
+        latitude: 27.7172,
+        longitude: 85.3240
     });
     const [message, setMessage] = useState("");
     const [error, setError] = useState("")

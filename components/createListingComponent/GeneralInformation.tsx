@@ -62,8 +62,13 @@ export default function GeneralInformation({ formData, handleChange, setFormData
         lng: event.latLng.lng(),
       };
       setMarker(newLocation);
-      handleChange({ target: { name: "latitude", value: newLocation.lat } });
-      handleChange({ target: { name: "longitude", value: newLocation.lng } });
+      // handleChange({ target: { name: "latitude", value: newLocation.lat } });
+      // handleChange({ target: { name: "longitude", value: newLocation.lng } });
+      setFormData((prevState: any) => ({
+        ...prevState,
+        latitude: newLocation.lat,
+        longitude: newLocation.lng,
+      }));
     }
   };
 

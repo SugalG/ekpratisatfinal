@@ -75,6 +75,10 @@ export const ListingSchema = z.object({
     .refine((val) => Array.isArray(val) && val.length > 0, {
       message: "At least one amenity must be selected",
     }),
+    latitude: z.number(),
+    longitude: z.number()
+
+
 });
 
 // Sign-up schema for validating user registration
