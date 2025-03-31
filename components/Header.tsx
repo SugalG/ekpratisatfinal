@@ -60,107 +60,95 @@ const Header = ({ className }: any) => {
   }
 
   return (
-    <div className={`w-full ${className} ${isHomePage ? 'bg-transparent' : 'bg-black'}`}>
-      {/* Top section with logo and avatar */}
-      <div className="flex items-center justify-between px-4 sm:px-6 md:px-12 py-3">
-        {/* Logo */}
-        <div className="flex-shrink-0">
-          <a href="/">
-            <img
-              src="/logofinal.png"
-              alt="Logo"
-              className="h-20 w-36 sm:h-24 sm:w-40 md:h-28 md:w-40 transition-all duration-300"
-            />
-          </a>
-        </div>
+    <div className={`w-full ${className} ${isHomePage ? 'bg-transparent' : 'bg-black pb-5'}`}>
+    <div className="flex items-center justify-between px-4 sm:px-6 md:px-12 py-3">
+      {/* Logo */}
+      <div className="flex-shrink-0">
+        <Link href="/">
+          <img
+            src="/logofinal.png"
+            alt="Logo"
+            className="h-16 w-32 sm:h-20 sm:w-36 md:h-24 md:w-40 transition-all duration-300"
+          />
+        </Link>
+      </div>
 
-        {/* Avatar/Login - shown on all screen sizes */}
-        <div className="lg:hidden">
-          {status === "loading" ? (
-            <div>Loading...</div>
-          ) : !session ? (
-            <LoginButton />
-          ) : (
-            <div className="flex items-center">
-              <AvatarDropdown
-                avatarUrl={session.user.image || undefined}
-                userName={session.user.name || undefined}
-              />
+      {!isHomePage && (
+          <div className="hidden md:flex w-1/3 justify-center">
+            <SearchComponent />
+          </div>
+        )}
+
+      {/* Navigation, Search, and Authentication */}
+      <div className="flex items-center justify-between md:justify-center">
+        {/* Search Bar - Centered on Large Screens, Below on Small Screens */}
+    
+        <div className="flex items-center space-x-4 md:space-x-8">
+          {/* Hidden on Small Screens, Visible on Large Screens */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link
+              href="/about"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu"
+            >
+              About Us
+            </Link>
+
+            {/* Services Dropdown */}
+            <div className="relative" ref={servicesRef}>
+              <button
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer"
+                onClick={handleServicesClick}
+              >
+                Services
+              </button>
+              {isServicesOpen && (
+                <ServiceComponent className="bg-black border border-gray-800" />
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Navigation - hidden on small/medium screens, shown on large screens */}
-        <div className="hidden lg:flex items-center space-x-4 sm:space-x-6 md:space-x-10">
-          {/* About Us */}
-          <Link
-            href="/about"
-            className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu"
-          >
-            About Us
-          </Link>
-
-          {/* Services Dropdown */}
-          <div className="relative" ref={servicesRef}>
-            <button
-              className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
-              onClick={handleServicesClick}
-            >
-              Services
-            </button>
-            {isServicesOpen && (
-              <ServiceComponent className={`${isHomePage ? 'bg-transparent border-transparent' : 'bg-black border border-gray-800'}`} />
-            )}
+            {/* Tools Dropdown */}
+            <div className="relative" ref={toolsRef}>
+              <button
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer"
+                onClick={handleToolsClick}
+              >
+                Tools
+              </button>
+              {isToolsOpen && (
+                <div className="absolute top-full left-0 mt-2 rounded-md w-40 z-10 bg-black border border-gray-800">
+                  {["Unit Converter", "Calendar", "EMI"].map((tool) => (
+                    <Link
+                      key={tool}
+                      href={`/${tool.toLowerCase().replace(" ", "-")}`}
+                      className="block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] font-medium text-sm tracking-normal hover:scale-105 transform-gpu"
+                    >
+                      {tool}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Tools Dropdown */}
-          <div className="relative" ref={toolsRef}>
-            <button
-              className={`text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] transition-all font-serif text-lg tracking-wide hover:scale-105 transform-gpu cursor-pointer ${isHomePage ? 'bg-transparent' : 'bg-black'}`}
-              onClick={handleToolsClick}
-            >
-              Tools
-            </button>
-            {isToolsOpen && (
-              <div className={`absolute top-full left-0 mt-2 rounded-md w-40 z-10 border border-gray-800 ${isHomePage ? 'bg-transparent' : 'bg-black'} ${isHomePage ? 'border-transparent' : 'border border-gray-800'}`}>
-                {["Unit Converter", "Calendar", "EMI"].map((tool) => (
-                  <Link
-                    key={tool}
-                    href={`/${tool.toLowerCase().replace(" ", "-")}`}
-                    className="block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0] hover:from-[#FFC300] hover:to-[#D9D9D9] font-medium text-sm tracking-normal hover:scale-105 transform-gpu"
-                  >
-                    {tool}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Authentication - shown only on large screens (hidden on mobile since we show it above) */}
-          <div className="hidden lg:block">
-            {status === "loading" ? (
-              <div></div>
-            ) : !session ? (
+          {/* Authentication */}
+          <div>
+            {status === "loading" ? null : !session ? (
               <LoginButton />
             ) : (
-              <div className="flex items-center space-x-4 sm:space-x-6">
-                <AvatarDropdown
-                  avatarUrl={session.user.image || undefined}
-                  userName={session.user.name || undefined}
-                />
-              </div>
+              <AvatarDropdown avatarUrl={session.user.image || undefined} userName={session.user.name || undefined} />
             )}
           </div>
         </div>
       </div>
-
-      {/* Search bar - conditionally rendered and responsive */}
-      {!isHomePage && (
-        <div className="w-full px-4 sm:px-6 md:px-12 pb-4">
-          <SearchComponent />
-        </div>
-      )}
     </div>
+
+    {/* Search Bar - Shown Below on Small Screens */}
+    {!isHomePage && (
+      <div className="md:hidden w-full px-4 sm:px-6 md:px-12 mt-2">
+        <SearchComponent />
+      </div>
+    )}
+  </div>
   );
 };
 
