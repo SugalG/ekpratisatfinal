@@ -139,7 +139,7 @@ const Header = ({ className }: any) => {
           {/* Authentication - shown only on large screens (hidden on mobile since we show it above) */}
           <div className="hidden lg:block">
             {status === "loading" ? (
-              <div>Loading...</div>
+              <div></div>
             ) : !session ? (
               <LoginButton />
             ) : (
