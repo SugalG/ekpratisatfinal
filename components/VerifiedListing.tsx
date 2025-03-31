@@ -10,7 +10,7 @@ export default async function VerifiedListings() {
     if (!data || data.length === 0) {
       return (
         <div className="font-bold text-7xl flex items-center justify-center h-full">
-          No verified listings available.
+          
         </div>
       );
     }

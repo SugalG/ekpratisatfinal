@@ -18,8 +18,8 @@ export default async function Home() {
       <WavyBackground/>
       <CategoryComponent/>
      
-      <TrialListing/>
       <VerifiedListings/>
+      <TrialListing/>
      
     </div>
   );
