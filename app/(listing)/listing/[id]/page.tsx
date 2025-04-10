@@ -1,6 +1,6 @@
 import FavouriteButton from "@/components/FavouriteButton";
 import { listingDetailAction } from "@/action/listingDetailAction";
-import SwiperComponent from "@/components/SwiperComponent";
+import SwiperFullComponent from "@/components/SwiperFullComponent";
 import { getListingAction } from "@/action/getListingAction";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/app/lib/auth";
@@ -39,13 +39,20 @@ export default async function Page({ params }: any) {
   return (
     <div className="p-6">
       <div className="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="w-full">
-          <SwiperComponent images={property.images} />
+        
+        {/* Image Section with Golden Border for Verified Listings */}
+        <div
+          className={`w-full ${
+            property.verified ? "border-4 border-yellow-500 shadow-lg shadow-yellow-300" : ""
+          } rounded-lg overflow-hidden`}
+        >
+          <SwiperFullComponent images={property.images} />
         </div>
 
         <div className="p-6 relative">
+          {/* Verified Badge */}
           {property.verified && (
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-green-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full shadow-md z-10">
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-[#FFD700] text-black text-[10px] sm:text-xs px-3 py-1 rounded-full font-semibold shadow-md z-10 border border-yellow-400 flex items-center">
               Verified
             </div>
           )}
@@ -78,6 +85,7 @@ export default async function Page({ params }: any) {
               </div>
             )}
         </div>
+
         {/* Additional details */}
         <div className="mt-6">
           <h2 className="text-2xl font-semibold text-gray-800">Additional Details</h2>

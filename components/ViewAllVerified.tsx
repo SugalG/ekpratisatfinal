@@ -18,7 +18,7 @@ export default function (){
     };
     return(
         <div
-      className="p-2 bg-green-400 text-white text-sm md:text-base cursor-pointer hover:bg-green-600 rounded-lg shadow-lg"
+      className="p-2 bg-[#FFD700] text-black text-sm md:text-base cursor-pointer hover:bg-[#e6ca2e] rounded-lg shadow-lg"
       onClick={handleClick}
     >
       View All {'>>'}

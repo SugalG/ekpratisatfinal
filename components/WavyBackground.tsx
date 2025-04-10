@@ -56,15 +56,15 @@ export default function HeroSection() {
         <div className="absolute bottom-6 sm:bottom-10 md:bottom-20 w-full flex justify-center">
           <a
             href="#listing-section"
-            className="flex items-center justify-center sm:w-12 sm:h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full 
-          hover:bg-green-600 transition-all duration-300 ease-in-out animate-bounce"
+            className="flex items-center justify-center sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#FFD700] text-white rounded-full 
+          hover:bg-[#C0C0C0] transition-all duration-300 ease-in-out animate-bounce"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              className="w-6 h-6 sm:w-8 sm:h-8 text-white"
+              className="w-6 h-6 sm:w-8 sm:h-8 text-black"
             >
               <path
                 strokeLinecap="round"

@@ -16,7 +16,7 @@ export default async function VerifiedListings() {
     }
 
     return (
-      <div id="listing-section" className="max-w-7xl mx-auto pb-10 px-4 pt-4">
+      <div id="listing-section" className="max-w-7xl mx-auto pb-10 px-4 pt-4 mt-4">
         <div className="flex justify-between items-center pb-4">
           <div className="text-base md:text-xl lg:text-3xl font-bold font-custom">Verified Listings</div>
           <ViewAllVerified/>  {/* Render the 'View All Verified Listings' button */}

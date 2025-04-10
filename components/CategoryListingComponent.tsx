@@ -1,14 +1,27 @@
 import SwiperComponent from "./SwiperComponent";
 
-export default function ({ title, description, price, sqft, type, location, bathrooms, rooms, images, verified }: any) {
+export default function ({
+  title,
+  description,
+  price,
+  sqft,
+  type,
+  location,
+  bathrooms,
+  rooms,
+  images,
+  verified,
+}: any) {
   return (
-    <div className="border border-gray-200 rounded-lg shadow-lg overflow-hidden bg-white transform hover:scale-105 transition-transform duration-300 relative">
-      
-      {/* Verified Badge - Ensured Visibility */}
+    <div className={`border rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 relative 
+      ${verified ? "border-yellow-500 shadow-[0_0_15px_rgba(255,215,0,0.4)]" : "border-gray-200"}
+    `}>
+      {/* Verified Badge */}
       {verified && (
-        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-green-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full shadow-md z-10">
-          Verified
-        </div>
+        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-[#FFD700] text-black text-[10px] sm:text-xs px-3 py-1 rounded-full font-semibold shadow-md z-10 border border-yellow-600">
+         Verified
+      </div>
+      
       )}
 
       <div className="flex flex-col md:flex-row">
@@ -20,14 +33,24 @@ export default function ({ title, description, price, sqft, type, location, bath
         </div>
 
         {/* Content Section */}
-        <div className="w-full md:w-2/3 p-3 sm:p-4 flex flex-col justify-between">
+        <div className="w-full md:w-2/3 p-3 sm:p-4 flex flex-col justify-between bg-white">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">{title}</h2>
-            <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-3 line-clamp-2">{description}</p>
+            {/* Title */}
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">
+              {title}
+            </h2>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-3 line-clamp-2">
+              {description}
+            </p>
+
+            {/* Location */}
             <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-2">
               Location: <span className="font-medium text-gray-800">{location}</span>
             </p>
 
+            {/* Property Details */}
             <div className="flex flex-wrap gap-3 sm:gap-4 mb-3">
               {/* Rooms */}
               <div className="flex items-center space-x-1">
@@ -44,15 +67,21 @@ export default function ({ title, description, price, sqft, type, location, bath
                   <span className="font-medium text-gray-800">{bathrooms}</span> Bathrooms
                 </p>
               </div>
-              
             </div>
           </div>
 
+          {/* Price & Type */}
           <div>
-            <button className="px-3 sm:px-4 py-2 bg-red-500 text-white text-xs sm:text-sm font-medium rounded mb-2 shadow-md hover:bg-red-600 transition-colors duration-200">
+            <button className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded mb-2 shadow-md transition-colors duration-200
+              ${verified ? "bg-yellow-500 text-black hover:bg-yellow-600" : "bg-red-500 text-white hover:bg-red-600"}
+            `}>
               {type}
             </button>
-            <p className="text-base sm:text-lg md:text-xl font-semibold text-blue-600">Rs {price}</p>
+            <p className={`text-base sm:text-lg md:text-xl font-semibold
+              ${verified ? "text-yellow-500" : "text-blue-600"}
+            `}>
+              Rs {price}
+            </p>
           </div>
         </div>
       </div>

@@ -45,6 +45,8 @@ import SwiperComponent from "./SwiperComponent";
 //   );
 // }
 
+
+
 export default function ListingCard({
   title,
   description,
@@ -60,11 +62,12 @@ export default function ListingCard({
   category,
 }: any) {
 
-
   return (
     <div className="relative w-full max-w-[430px] h-auto mb-20">
       {/* Background Card (Image) */}
-      <div className="relative h-[250px] w-full rounded-lg overflow-hidden shadow-lg">
+      <div className={`relative h-[250px] w-full rounded-lg overflow-hidden shadow-lg
+        ${verified ? "border-2 border-yellow-500 shadow-[0_0_15px_rgba(255,215,0,0.6)]" : ""}
+      `}>
         {images && images.length > 0 ? (
           <SwiperComponent images={images} />
         ) : (
@@ -73,50 +76,41 @@ export default function ListingCard({
       </div>
 
       {/* Foreground Card (Info) */}
-      <div className="absolute top-[90%] left-[10%] right-[5%] bg-white p-4 shadow-lg rounded-lg z-10">
+      <div className={`absolute top-[90%] left-[10%] right-[5%] p-4 rounded-lg z-10 transition-all duration-300
+        ${verified ? "bg-black bg-opacity-90 border border-yellow-500 shadow-[0_0_20px_rgba(255,215,0,0.6)]" : "bg-white shadow-lg"}
+      `}>
         {/* Price Info */}
         <div className="mb-2">
-          {type === "rent" && <span className="text-black font-bold text-lg"> Rs. {price}/month</span>}
-          {type === "sell" && <span className="text-black font-bold text-lg"> Rs. {price}</span>}
+          <span className={`font-bold text-lg ${verified ? "text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0]" : "text-black"}`}>
+            Rs. {price}{type === "rent" ? "/month" : ""}
+          </span>
         </div>
 
         {/* Property Details */}
-        <div className="flex items-center text-gray-600 text-sm mb-2">
-          <div>
-            {baths !== null && <span>🚿 {baths}</span>}
-            {sqft !== null && <span>🏢 {sqft} sqft</span>}
-            {beds !== null && <span>🏡 {beds}</span>}
-          </div >
-
+        <div className={`flex items-center text-sm mb-2 ${verified ? "text-gray-400" : "text-gray-600"}`}>
+          {baths !== null && <span>🚿 {baths}</span>}
+          {sqft !== null && <span className="ml-2">🏢 {sqft} sqft</span>}
+          {beds !== null && <span className="ml-2">🏡 {beds}</span>}
         </div>
 
         {/* Verified Status */}
-        {
-          verified && (
-            <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-              Verified
-            </div>
-          )
-        }
+        {verified && (
+          <div className="absolute top-2 right-2 bg-[#FFD700] text-black text-xs px-3 py-1 rounded-full font-semibold">
+            Verified
+          </div>
+        )}
 
         {/* Title and Location */}
-        <div className="text-lg font-bold">{title}</div>
-        <div className="text-gray-500 flex justify-between">
-          <div>
-            {location}
-
-          </div>
-          <div className="capitalize">
-            <div className="capitalize">
-              {category?.replaceAll("_", " ") || ""}
-            </div>
-          </div>
+        <div className={`text-lg font-bold ${verified ? "text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#C0C0C0]" : "text-black"}`}>
+          {title}
         </div>
-      </div >
-    </div >
+        <div className={`flex justify-between ${verified ? "text-gray-400" : "text-gray-500"}`}>
+          <div>{location}</div>
+          <div className="capitalize">{category?.replaceAll("_", " ") || ""}</div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-
 
 
